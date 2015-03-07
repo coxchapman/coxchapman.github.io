@@ -845,7 +845,8 @@ call-to-action .button {
 }
 #contact input,
 #contact textarea,
-#contact select {
+#contact select
+#contact tlemail{
    padding: 18px 20px;
 	color: #eee;
     background: #FFFFFF;
