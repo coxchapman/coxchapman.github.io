@@ -839,6 +839,7 @@ call-to-action .button {
    margin: 12px 0;
    color: #313131;
 	display: inline-block;
+    outline: 1px #A7A7A7;
 	float: left;
    width: 26%;
 }
@@ -849,8 +850,8 @@ call-to-action .button {
 	color: #eee;
     background: #FFFFFF;
 	margin-bottom: 42px;
-    border: 1px #000000;
-	outline: none;
+    border: none;
+    outline: 1px #A7A7A7;
    font-size: 15px;
    line-height: 24px;
    width: 65%;
