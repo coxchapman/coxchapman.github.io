@@ -851,7 +851,7 @@ call-to-action .button {
 	color: #eee;
     background: #FFFFFF;
 	margin-bottom: 42px;
-    border: none;
+    border: 1px #A7A7A7;
     outline: 1px #A7A7A7;
    font-size: 15px;
    line-height: 24px;
