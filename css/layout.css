@@ -247,10 +247,29 @@ ul#nav li.current a { color: #FF3333; }
    margin-right: 15px;
    font-size: 20px;
 }
-
-
 /* ------------------------------------------------------------------ */
-/* d. Resume Section
+/* d. Text Section
+/* ------------------------------------------------------------------ */
+#text {
+   background: #EEEEEE;
+   padding-top: 96px;
+   padding-bottom: 66px;
+   overflow: hidden;
+}
+
+#text a, #text a:visited  { color: #fff; }
+#text a:hover, #text a:focus { color: #FF3333; }
+
+#text h2 {
+   font: 22px/30px 'opensans-bold', sans-serif;
+   color: #303030;
+   margin-bottom: 12px;
+}
+#text p {
+   line-height: 30px;
+   color: #7A7A7A;
+/* ------------------------------------------------------------------ */
+/* e. Resume Section
 /* ------------------------------------------------------------------ */
 
 #resume {
