@@ -39,6 +39,7 @@ header {
    text-align: center;
    overflow: hidden;
 }
+
 header-gart {
    position: relative;
    height: 800px;
@@ -52,7 +53,7 @@ header-gart {
 }
 
 /* vertically center banner section */
-header:before {
+header, header-gart:before {
    content: '';
    display: inline-block;
    vertical-align: middle;
