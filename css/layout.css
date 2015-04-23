@@ -53,7 +53,7 @@ header-gart {
 }
 
 /* vertically center banner section */
-header:before {
+header :before {
    content: '';
    display: inline-block;
    vertical-align: middle;
