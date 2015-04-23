@@ -38,10 +38,10 @@ header {
 	-webkit-background-size: cover !important;
    text-align: center;
    overflow: hidden;
-}
+} 
 
 /* vertically center banner section */
-header :before {
+header:before {
    content: '';
    display: inline-block;
    vertical-align: middle;
