@@ -47,7 +47,7 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure,
-footer, header, header-gart, hgroup, menu, nav, section, summary,
+footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
    margin: 0;
    padding: 0;
@@ -59,8 +59,8 @@ time, mark, audio, video {
 }
 
 article,aside,details,figcaption,figure,
-footer,header, header-gart, hgroup,menu,nav,section {
-footer,header, header-gart, hgroup,menu,nav,section {
+footer,header,hgroup,menu,nav,section {
+footer,header,hgroup,menu,nav,section {
    display: block;
 }
 
