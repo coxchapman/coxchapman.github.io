@@ -65,7 +65,15 @@ headergart:before {
    vertical-align: middle;
    height: 100%;
 }
-header, headergart .banner {
+header .banner {
+   display: inline-block;
+   vertical-align: middle;
+   margin: 0 auto;
+   width: 85%;
+   padding-bottom: 30px;s
+   text-align: center;
+}
+headergart .banner {
    display: inline-block;
    vertical-align: middle;
    margin: 0 auto;
