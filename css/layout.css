@@ -40,18 +40,6 @@ header {
    overflow: hidden;
 } 
 
-headergart {
-   position: relative;
-   height: 800px;
-   min-height: 500px;
-   width: 100%;
-   background: #161415 url(../images/gart15.png) no-repeat top center;
-   background-size: cover !important;
-	-webkit-background-size: cover !important;
-   text-align: center;
-   overflow: hidden;
-} 
-
 /* vertically center banner section */
 header:before {
    content: '';
@@ -59,12 +47,7 @@ header:before {
    vertical-align: middle;
    height: 100%;
 }
-headergart:before {
-   content: '';
-   display: inline-block;
-   vertical-align: middle;
-   height: 100%;
-}
+
 header .banner {
    display: inline-block;
    vertical-align: middle;
@@ -73,14 +56,7 @@ header .banner {
    padding-bottom: 30px;s
    text-align: center;
 }
-headergart .banner {
-   display: inline-block;
-   vertical-align: middle;
-   margin: 0 auto;
-   width: 85%;
-   padding-bottom: 30px;s
-   text-align: center;
-}
+
 
 header .banner-text { width: 100%; }
 header .banner-text h1 {
