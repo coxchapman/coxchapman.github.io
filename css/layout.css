@@ -47,6 +47,12 @@ header:before {
    vertical-align: middle;
    height: 100%;
 }
+headergart:before {
+   content: '';
+   display: inline-block;
+   vertical-align: middle;
+   height: 100%;
+}
 header .banner {
    display: inline-block;
    vertical-align: middle;
