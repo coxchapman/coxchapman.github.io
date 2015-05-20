@@ -27,7 +27,7 @@ headerrosh {
    height: 630px;
    min-height: 630px;
    width: 100%;
-   background: #161415 url(../videos/IMG_1221.mov) no-repeat top center;
+   background: #161415;
    background-size: cover !important;
 	-webkit-background-size: cover !important;
    text-align: center;
