@@ -24,8 +24,8 @@ body { background: #0f0f0f; }
 
 headerrosh {
    position: relative;
-   height: 630px;
-   min-height: 630px;
+   height: 420px;
+   min-height: 420px;
    width: 100%;
    background: #161415;
    background-size: cover !important;
