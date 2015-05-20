@@ -24,10 +24,10 @@ body { background: #0f0f0f; }
 
 headerrosh {
    position: relative;
-   height: 420px;
-   min-height: 420px;
+   height: 650px;
+   min-height: 650px;
    width: 100%;
-   background: #161415;
+   background: "transparent";
    background-size: cover !important;
 	-webkit-background-size: cover !important;
    text-align: center;
