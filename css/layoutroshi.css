@@ -34,7 +34,7 @@ headerrosh {
    overflow: hidden;
 } 
 
-fullscreen-bg {
+.fullscreen-bg {
     position: fixed;
     top: 0;
     right: 0;
@@ -44,7 +44,7 @@ fullscreen-bg {
     z-index: -100;
 }
  
-fullscreen-bg__video {
+.fullscreen-bg__video {
     position: absolute;
     top: 0;
     left: 0;
