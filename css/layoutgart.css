@@ -192,7 +192,7 @@ ul#nav li.current a { color: #FF3333; }
    background: #FFFFFF;
    padding-top: 96px;
    padding-bottom: 66px;
-   overflow: hidden;
+   overflow: visible;
 }
 
 #info a, #info a:visited  { color: #fff; }
