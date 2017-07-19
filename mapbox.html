@@ -3,17 +3,34 @@
 <head>
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://mapbox.com/base/latest/base.css' rel='stylesheet' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.1/mapbox-gl-directions.css' type='text/css' />
+       <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; left:33.3333%; width:66.6667%; }
+        #sidebar { position:absolute; top:0; bottom:0; width:33.3333%
+    </style>
 </head>
 
 <body>
-    <div id='map' style='width: 600px; height: 400px;'></div>
+    <div class='sidebar pad2'>Jay's test Mapbox Page
+    </div>
+    <div id='map'></div>
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiamF5Y294IiwiYSI6ImNqNTMwcDhwcTAxdGMyem00cmpzcjAzZXIifQ.QFecF9z3uNMvVSUFGky9iQ';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9'
+    style: 'mapbox://styles/mapbox/light-v9',
+    zoom: 10,
+    center: [-122.427063, 37.759773],
 });
+    map.addControl(new mapboxgl.NavigationControl());
+    
+    map.addControl(new MapboxDirections({
+    accessToken: mapboxgl.accessToken
+}), 'top-left');
 </script>
 </body>
 </html>
