@@ -14,7 +14,8 @@
    f. Call To Action Section
    g. Testimonials Section
    h. Contact Section
-   i. Footer
+   i. Books Section
+   j. Footer
 
 ===================================================================== */
 
@@ -899,28 +900,47 @@ call-to-action .button {
    top: 17px;
 }
 
+/* ------------------------------------------------------------------ */
+/* i. Books Section
+/* ------------------------------------------------------------------ */
 
-/* Twitter Feed */
-#twitter {
-   margin-top: 12px;
-   padding: 0;
+#books {
+    background: #A7A7A7;
+   padding-top: 96px;
+   padding-bottom: 102px;
+   color: #636363;
 }
-#twitter li {
-   margin: 6px 0px 12px 0;
-   line-height: 30px;
+#books .section-head { margin-bottom: 42px; }
+
+#books a, #books a:visited  { color: #FF3333; }
+#books a:hover, #books a:focus { color: #fff; }
+
+#books h1 {
+   font: 18px/24px 'opensans-bold', sans-serif;
+   text-transform: uppercase;
+   letter-spacing: 3px;
+   color: #313131;
+   margin-bottom: 6px;
 }
-#twitter li span {
-   display: block;
+#books h1 span {
+    border-bottom: 3px solid #FF3333;
+    padding-bottom: 6px;
 }
-#twitter li b a {
-   font: 13px/36px 'opensans-regular', Sans-serif;
-   color: #474747 !important;
-   border: none;
+
+#books h4 {
+   font: 16px/24px 'opensans-bold', sans-serif;
+   color: #313131;
+   margin-bottom: 6px;
 }
+#books p.lead {
+   font: 18px/36px 'opensans-light', sans-serif;
+   padding-right: 3%;
+}
+#books .header-col { padding-top: 6px; }
 
 
 /* ------------------------------------------------------------------ */
-/* i. Footer
+/* j. Footer
 /* ------------------------------------------------------------------ */
 
 footer {
