@@ -61,7 +61,7 @@ article { position: relative;
 section { padding-top: 1rem;
           padding-bottom: 1rem; }
 
-p, ol, ul { font-size: 1.2rem;
+p, ol, ul, blockquote{ font-size: 1.2rem;
             font-family: 'Open Sans', sans serif; }
 
 p { line-height: 2.2rem;
@@ -83,7 +83,7 @@ div.epigraph > blockquote > footer { font-style: normal; }
 div.epigraph > blockquote > footer > cite { font-style: italic; }
 /* end chapter epigraphs styles */
 
-blockquote { font-size: 1.4rem; }
+blockquote { font-size: 1.2rem; }
 
 blockquote p { width: 55%;
                margin-right: 40px; }
