@@ -27,6 +27,8 @@ var map = new mapboxgl.Map({
     
     map.addControl(new MapboxDirections({
     accessToken: mapboxgl.accessToken
+    congestion: 'true'
+    alternatives: 'true'
 }), 'top-left');
 </script>
 </body>
