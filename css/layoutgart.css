@@ -1,0 +1,235 @@
+/*
+=====================================================================
+*   Ceevee v1.0 Layout Stylesheet
+*   url: styleshout.com
+*   03-18-2014
+=====================================================================
+
+   TOC:
+   a. General Styles
+   b. Header Styles
+   c. Info Section
+
+===================================================================== */
+
+/* ------------------------------------------------------------------ */
+/* a. General Styles
+/* ------------------------------------------------------------------ */
+
+body { background: #FFFFFF; }
+
+/* ------------------------------------------------------------------ */
+/* b. Header Styles
+/* ------------------------------------------------------------------ */
+
+headergart {
+   position: relative;
+   height: 500px;
+   min-height: 500px;
+   width: 100%;
+   background: #161415 url(../images/gart15.jpg) no-repeat top center;
+   background-size: cover !important;
+	-webkit-background-size: cover !important;
+   text-align: center;
+   overflow: hidden;
+} 
+
+/* vertically center banner section */
+header:before {
+   content: '';
+   display: inline-block;
+   vertical-align: middle;
+   height: 100%;
+}
+headergart:before {
+   content: '';
+   display: inline-block;
+   vertical-align: middle;
+   height: 100%;
+}
+
+headergart .banner {
+   display: inline-block;
+   vertical-align: middle;
+   margin: 0 auto;
+   width: 100%;
+   padding-bottom: 30px;s
+   text-align: center;
+}
+
+headergart .banner-text { width: 100%; }
+headergart .banner-text h1 {
+   font: 90px/1.1em 'opensans-bold', sans-serif;
+   color: #fff;
+   letter-spacing: -2px;
+   margin: 18px auto 18px auto;
+   text-shadow: 0px 1px 3px rgba(0, 0, 0, .8);
+    background-color:rgba(0,0,0,0.5);
+}
+headergart .banner-text h3 {
+   font: 18px/1.9em 'librebaskerville-regular', serif;
+   color: #A8A8A8;
+   margin: 0 auto;
+   width: 70%;
+   text-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+}
+headergart .banner-text h3 span,
+headergart .banner-text h3 a {
+   color: #fff;
+}
+headergart .banner-text hr {
+   width: 100%;
+   margin: 18px auto 24px auto;
+   border-color: #2F2D2E;
+   border-color: rgba(150, 150, 150, .1);
+}
+
+/* header social links */
+header .social {
+   margin: 24px 0;
+   padding: 0;
+   font-size: 30px;
+   text-shadow: 0px 1px 2px rgba(0, 0, 0, .8);
+}
+header .social li {
+   display: inline-block;
+   margin: 0 15px;
+   padding: 0;
+}
+header .social li a { color: #fff; }
+header .social li a:hover { color: #FF3333; }
+
+/* scrolldown link */
+headergart .scrolldown a {
+   position: absolute;
+   bottom: 30px;
+   left: 50%;
+   margin-left: -29px;
+   color: #fff;
+   display: block;
+   height: 42px;
+   width: 42px;
+   font-size: 42px;
+   line-height: 42px;
+   color: #777777;
+   border-radius: 100%;
+
+   -webkit-transition: all .3s ease-in-out;
+   -moz-transition: all .3s ease-in-out;
+   -o-transition: all .3s ease-in-out;
+   transition: all .3s ease-in-out;
+}
+headergart .scrolldown a:hover { color: #FF3333; }
+
+/* primary navigation
+--------------------------------------------------------------------- */
+#nav-wrap ul, #nav-wrap li, #nav-wrap a {
+	 margin: 0;
+	 padding: 0;
+	 border: none;
+	 outline: none;
+}
+
+/* nav-wrap */
+#nav-wrap {
+   font: 12px 'opensans-bold', sans-serif;
+   width: 100%;
+   text-transform: uppercase;
+   letter-spacing: 2.5px;
+   margin: 0 auto;
+   z-index: 100;
+   position: fixed;
+   left: 0;
+   top: 0;
+}
+.opaque { background-color: #333; }
+
+/* hide toggle button */
+#nav-wrap > a.mobile-btn { display: none; }
+
+ul#nav {
+   min-height: 48px;
+   width: auto;
+
+   /* center align the menu */
+   text-align: center;
+}
+ul#nav li {
+   position: relative;
+   list-style: none;
+   height: 48px;
+   display: inline-block;
+}
+
+/* Links */
+ul#nav li a {
+
+/* 8px padding top + 8px padding bottom + 32px line-height = 48px */
+
+   display: inline-block;
+   padding: 8px 13px;
+   line-height: 32px;
+	text-decoration: none;
+   text-align: left;
+   color: #777777;
+
+	-webkit-transition: color .2s ease-in-out;
+	-moz-transition: color .2s ease-in-out;
+	-o-transition: color .2s ease-in-out;
+	-ms-transition: color .2s ease-in-out;
+	transition: color .2s ease-in-out;
+}
+
+ul#nav li a:active { background-color: transparent !important; }
+ul#nav li.current a { color: #FF3333; }
+
+
+/* ------------------------------------------------------------------ */
+/* c. Info Section
+/* ------------------------------------------------------------------ */
+
+#info {
+   background: #FFFFFF;
+   padding-top: 96px;
+   padding-bottom: 66px;
+   overflow: visible;
+}
+
+#info a, #info a:visited  { color: #fff; }
+#info a:hover, #info a:focus { color: #FF3333; }
+
+#info h2 {
+   font: 22px/30px 'opensans-bold', sans-serif;
+   color: #303030;
+   margin-bottom: 12px;
+}
+#info p {
+   line-height: 30px;
+   color: #7A7A7A;
+}
+#info .profile-pic {
+   position: relative;
+   width: 120px;
+   height: 120px;
+   border-radius: 100%;
+}
+#info .contact-details { width: 41.66667%; }
+#info .download {
+   width: 58.33333%;
+   padding-top: 6px;
+}
+#info .main-col { padding-right: 5%; }
+#info .download .button {
+   margin-top: 6px;
+   background: #444;
+}
+#info .download .button:hover {
+    background: #FF3333;
+    color: #FFFFFF;
+}
+#info .download .button i {
+   margin-right: 15px;
+   font-size: 20px;
+}
+
+
