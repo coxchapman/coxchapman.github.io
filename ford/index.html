@@ -128,9 +128,24 @@
               },
               'paint': {
                 'circle-radius': 5,
-                'circle-color': "purple"
+                'circle-color': {
+                    property: 'type',
+                    type: 'categorical',
+                    default: 'white',
+                    stops: [
+                      ['dealer', 'blue'],
+                      ['charging_point', 'purple'],
+                    ]
+        },
               }
             });
+
+          stops: [
+            ['navigation.depart', 'green'],
+            ['navigation.arrive', 'red'],
+            ['navigation.reroute', 'orange'],
+            ['navigation.cancel', 'yellow'],
+            ['navigation.feedback', 'pink'],
 
 
             // When a click event occurs on a feature in the csvData layer, open a popup at the
