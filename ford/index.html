@@ -127,14 +127,22 @@
                 'data': data
               },
               'paint': {
-                'circle-radius': 5,
+                'circle-radius': {
+                    property: 'type',
+                    type: 'categorical',
+                    default: 'white',
+                    stops: [
+                      ['dealer', 7],
+                      ['charging_point', 3],
+                    ]
+        },
                 'circle-color': {
                     property: 'type',
                     type: 'categorical',
                     default: 'white',
                     stops: [
                       ['dealer', 'blue'],
-                      ['charging_point', 'purple'],
+                      ['charging_point', 'green'],
                     ]
         },
               }
