@@ -135,6 +135,12 @@
         zoom: 5 // starting zoom
       });
 
+      var scale = new mapboxgl.ScaleControl({
+          maxWidth: 80,
+          unit: 'imperial'
+          });
+          map.addControl(scale);
+
           $(document).ready(function () {
       $.ajax({
         type: "GET",
@@ -169,8 +175,9 @@
                     type: 'categorical',
                     default: 'white',
                     stops: [
-                      ['Ford Dealership', 'blue'],
                       ['Charging Station', 'green'],
+                      ['Ford Dealership', 'blue'],
+
                     ]
         },
               }
