@@ -1,0 +1,41 @@
+<head>
+    <link rel = 'shortcut icon' href = "favicon.png">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://mapbox.com/base/latest/base.css' rel='stylesheet' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css' type='text/css' />
+       <style>
+        body { margin:0; padding:0; }
+        /*#map { position:absolute; top:0; bottom:0; left:33.3333%; width:66.6667%; }*/
+        /*#sidebar { position:absolute; top:0; bottom:0; width:33.3333%*/
+    </style>
+</head>
+
+<body>
+    <div id='map' style='width: 100%; height: 100%;'></div>
+    <div id='map'></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94LW1hcC1kZXNpZ24iLCJhIjoiY2s4OTlrcW90MDRzOTNkcXo5Z2dmOWF5YyJ9.MTW3toi6q6S6ub4kfpm8EQ';
+        mapboxgl.stagingToken = 'pk.eyJ1IjoiZGFucGF0LXN0YWdpbmcyIiwiYSI6ImNqNDRreThzdjAxangyd3BkOXUweTVmZWQifQ.YP2_hKGUCUn4gyn1A1mPqA'
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox-map-design/ck86cvyq102k31imdivz7ffi2',
+    zoom: 10,
+    center: [11.5868, 48.1591],
+});
+
+var directions = new MapboxDirections({
+  accessToken: mapboxgl.stagingToken,
+  api: 'https://api-valhalla-here-staging-traf.tilestream.net/directions/v5/',
+    congestion: 'false',
+    alternatives: 'false'
+
+});
+window.directions = directions;
+
+map.addControl(directions, 'top-left');
+    
+</script>
+</body>
+</html> 
