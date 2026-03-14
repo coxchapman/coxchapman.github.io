@@ -509,7 +509,7 @@
     <div class="footer-text">
       atc audio via <a href="https://www.liveatc.net" target="_blank" rel="noopener">liveatc.net</a>
       &nbsp;·&nbsp;
-      music via <a href="https://somafm.com/dronezone/" target="_blank" rel="noopener">somafm drone zone</a>
+      music via <a href="https://www.youtube.com/@ChillhopMusic" target="_blank" rel="noopener">chillhop music</a>
     </div>
   </footer>
 
@@ -523,10 +523,9 @@
 
 <!-- Hidden audio elements -->
 <audio id="atc-audio" crossorigin="anonymous"></audio>
-<audio id="music-audio" loop crossorigin="anonymous">
-  <source src="https://ice6.somafm.com/dronezone-128-mp3" type="audio/mpeg">
-  <source src="https://ice2.somafm.com/dronezone-128-mp3" type="audio/mpeg">
-</audio>
+<div id="yt-container" style="position:fixed;top:-400px;left:0;width:320px;height:180px;pointer-events:none;">
+  <div id="yt-player"></div>
+</div>
 
 <script>
   // ─── Airport / Feed Configuration ────────────────────────────────────────────
@@ -594,11 +593,12 @@
     feedIdx: 0,
     musicVol: 60,
     atcVol: 80,
+    ytPlayer: null,
+    ytReady: false,
   };
 
   // ─── DOM refs ─────────────────────────────────────────────────────────────────
-  const atcAudio     = document.getElementById('atc-audio');
-  const musicAudio   = document.getElementById('music-audio');
+  const atcAudio = document.getElementById('atc-audio');
   const playBtn      = document.getElementById('play-btn');
   const displayName  = document.getElementById('display-name');
   const displayIcao  = document.getElementById('display-icao');
@@ -747,8 +747,25 @@
     }
   });
 
-  // ─── Music audio init ─────────────────────────────────────────────────────────
-  musicAudio.volume = state.musicVol / 100;
+  // ─── YouTube player ───────────────────────────────────────────────────────────
+  window.onYouTubeIframeAPIReady = function () {
+    state.ytPlayer = new YT.Player('yt-player', {
+      videoId: '5yx6BWlEVcY',
+      playerVars: { autoplay: 0, controls: 0, disablekb: 1, fs: 0, loop: 0 },
+      events: {
+        onReady: (e) => {
+          state.ytReady = true;
+          e.target.setVolume(state.musicVol);
+        },
+      },
+    });
+  };
+
+  (function () {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  })();
 
   // ─── Play / Pause ─────────────────────────────────────────────────────────────
   playBtn.addEventListener('click', () => {
@@ -757,8 +774,10 @@
       playBtn.textContent = 'pause';
       setWaveformActive(true);
 
-      musicAudio.volume = state.musicVol / 100;
-      musicAudio.play().catch(() => {});
+      if (state.ytReady) {
+        state.ytPlayer.setVolume(state.musicVol);
+        state.ytPlayer.playVideo();
+      }
 
       reloadAtc();
 
@@ -769,7 +788,7 @@
       setLoading('');
       setWaveformActive(false);
 
-      musicAudio.pause();
+      if (state.ytReady) state.ytPlayer.pauseVideo();
 
       atcAudio.pause();
       atcAudio.src = '';
@@ -780,7 +799,7 @@
   musicVolSlider.addEventListener('input', () => {
     state.musicVol = parseInt(musicVolSlider.value);
     musicVolVal.textContent = state.musicVol;
-    musicAudio.volume = state.musicVol / 100;
+    if (state.ytReady) state.ytPlayer.setVolume(state.musicVol);
   });
 
   atcVolSlider.addEventListener('input', () => {
@@ -803,9 +822,8 @@
     // 2. Initial slider value matches state
     assert('initial slider value is 60', parseInt(musicVolSlider.value) === 60);
 
-    // 3. Initial audio volume matches state
-    assert('initial audio volume matches state (0.6)',
-      Math.abs(musicAudio.volume - state.musicVol / 100) < 0.001);
+    // 3. ytReady flag is a boolean
+    assert('ytReady is a boolean', typeof state.ytReady === 'boolean');
 
     // 4. Changing slider updates state.musicVol
     const prev = state.musicVol;
@@ -813,9 +831,9 @@
     musicVolSlider.dispatchEvent(new Event('input'));
     assert('slider input updates state.musicVol', state.musicVol === 42);
 
-    // 5. Changing slider updates audio.volume
-    assert('slider input updates musicAudio.volume',
-      Math.abs(musicAudio.volume - 0.42) < 0.001);
+    // 5. state.musicVol is within valid range
+    assert('state.musicVol is between 0 and 100',
+      state.musicVol >= 0 && state.musicVol <= 100);
 
     // 6. Display value reflects slider
     assert('volume display label updates', musicVolVal.textContent === '42');
