@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lofi air traffic control</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0d0f14;
+      --bg2: #13161e;
+      --bg3: #1a1e2a;
+      --accent: #4a9eff;
+      --accent2: #7c6af7;
+      --green: #3ecf8e;
+      --text: #c8d0e0;
+      --text-dim: #5a6380;
+      --text-bright: #e8eaf0;
+      --border: #2a2f40;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap');
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(74, 158, 255, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -10%;
+      right: -10%;
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, rgba(124, 106, 247, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .site-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      text-transform: lowercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .site-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      opacity: 0.6;
+    }
+
+    /* Radar animation */
+    .radar-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .radar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      background: var(--bg2);
+    }
+
+    .radar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        rgba(74, 158, 255, 0.15) 30deg,
+        transparent 60deg
+      );
+      border-radius: 50%;
+      animation: radar-sweep 3s linear infinite;
+    }
+
+    .radar-cross {
+      position: absolute;
+      inset: 0;
+    }
+
+    .radar-cross::before,
+    .radar-cross::after {
+      content: '';
+      position: absolute;
+      background: var(--border);
+    }
+
+    .radar-cross::before {
+      width: 1px;
+      height: 100%;
+      left: 50%;
+    }
+
+    .radar-cross::after {
+      height: 1px;
+      width: 100%;
+      top: 50%;
+    }
+
+    .radar-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+
+    .radar-ring:nth-child(1) { inset: 20%; }
+    .radar-ring:nth-child(2) { inset: 40%; }
+
+    .radar-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--green);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    .radar-dot:nth-child(3) { top: 28%; left: 58%; animation-delay: 0s; }
+    .radar-dot:nth-child(4) { top: 55%; left: 30%; animation-delay: 0.7s; }
+    .radar-dot:nth-child(5) { top: 38%; left: 70%; animation-delay: 1.4s; }
+
+    @keyframes radar-sweep {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    /* Airport selector */
+    .airport-selector {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .airport-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      color: var(--text-dim);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .airport-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .airport-btn.active {
+      border-color: var(--accent);
+      background: rgba(74, 158, 255, 0.08);
+      color: var(--accent);
+    }
+
+    /* Display panel */
+    .display-panel {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .panel-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .airport-info {}
+
+    .airport-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-bright);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+
+    .airport-icao {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    .status-badge.live {
+      color: var(--green);
+      border-color: rgba(62, 207, 142, 0.3);
+      background: rgba(62, 207, 142, 0.05);
+    }
+
+    .status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .status-badge.live .status-dot {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    /* Waveform visualizer */
+    .waveform {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 32px;
+      margin-bottom: 1rem;
+    }
+
+    .wave-bar {
+      width: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      opacity: 0.4;
+      min-height: 2px;
+      transition: height 0.1s ease;
+    }
+
+    .wave-bar.active {
+      opacity: 0.8;
+      animation: wave-anim var(--duration, 0.8s) ease-in-out infinite alternate;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes wave-anim {
+      from { height: 2px; }
+      to { height: var(--max-height, 28px); }
+    }
+
+    /* Frequency display */
+    .freq-display {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* Controls */
+    .controls {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .play-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 1.25rem;
+    }
+
+    .play-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .play-btn:active {
+      transform: translateY(0);
+    }
+
+    .volume-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .volume-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .volume-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      width: 52px;
+      flex-shrink: 0;
+    }
+
+    .volume-label span {
+      display: block;
+      font-size: 0.6rem;
+      opacity: 0.6;
+      margin-top: 1px;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--border);
+      cursor: pointer;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(74, 158, 255, 0.4);
+      transition: transform 0.1s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .volume-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      width: 28px;
+      text-align: right;
+    }
+
+    /* Feed selector */
+    .feed-selector {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .feed-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .feed-options {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .feed-opt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-dim);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.05em;
+    }
+
+    .feed-opt:hover { border-color: var(--accent); color: var(--text); }
+    .feed-opt.active { border-color: var(--accent); color: var(--accent); background: rgba(74,158,255,0.08); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .footer-text {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      opacity: 0.5;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-text a {
+      color: var(--text-dim);
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    .footer-text a:hover { opacity: 1; }
+
+    /* Loading state */
+    .loading-msg {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-align: center;
+      padding: 0.5rem;
+      letter-spacing: 0.08em;
+      min-height: 1.2rem;
+    }
+
+    /* Error state */
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Hidden YouTube container */
+    #yt-container {
+      position: fixed;
+      bottom: -100px;
+      left: -100px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="yt-container">
+  <div id="yt-player"></div>
+</div>
+
+<div class="container">
+
+  <header>
+    <div class="radar-wrap">
+      <div class="radar">
+        <div class="radar-cross"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-dot"></div>
+        <div class="radar-dot"></div>
+        <div class="radar-dot"></div>
+      </div>
+    </div>
+    <div class="site-title">lofi air traffic control</div>
+    <div class="site-subtitle">lofi beats • live atc audio</div>
+  </header>
+
+  <div class="airport-selector" id="airport-selector">
+    <!-- populated by JS -->
+  </div>
+
+  <div class="display-panel">
+    <div class="panel-row">
+      <div class="airport-info">
+        <div class="airport-name" id="display-name">SAN FRANCISCO INTL</div>
+        <div class="airport-icao" id="display-icao">KSFO • TOWER</div>
+      </div>
+      <div class="status-badge" id="status-badge">
+        <div class="status-dot"></div>
+        <span id="status-text">IDLE</span>
+      </div>
+    </div>
+
+    <div class="waveform" id="waveform">
+      <!-- bars populated by JS -->
+    </div>
+
+    <div class="freq-display" id="freq-display">LIVEATC.NET • 128KBPS MP3</div>
+
+    <div class="loading-msg" id="loading-msg"></div>
+  </div>
+
+  <div class="controls">
+    <button class="play-btn" id="play-btn">▶ &nbsp; TUNE IN</button>
+
+    <div class="volume-controls">
+      <div class="volume-row">
+        <div class="volume-label">MUSIC<span>lofi beats</span></div>
+        <input type="range" id="music-vol" min="0" max="100" value="60">
+        <div class="volume-val" id="music-vol-val">60</div>
+      </div>
+      <div class="volume-row">
+        <div class="volume-label">ATC<span>live feed</span></div>
+        <input type="range" id="atc-vol" min="0" max="100" value="80">
+        <div class="volume-val" id="atc-vol-val">80</div>
+      </div>
+    </div>
+
+    <div class="feed-selector" id="feed-selector">
+      <div class="feed-label">FREQUENCY</div>
+      <div class="feed-options" id="feed-options">
+        <!-- populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-text">
+      atc audio via <a href="https://www.liveatc.net" target="_blank" rel="noopener">liveatc.net</a>
+      &nbsp;·&nbsp;
+      music via <a href="https://www.youtube.com/@LofiGirl" target="_blank" rel="noopener">lofi girl</a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Hidden ATC audio element -->
+<audio id="atc-audio" crossorigin="anonymous"></audio>
+
+<script>
+  // ─── Airport / Feed Configuration ────────────────────────────────────────────
+  const AIRPORTS = {
+    SFO: {
+      name: 'SAN FRANCISCO INTL',
+      icao: 'KSFO',
+      feeds: [
+        { label: 'TOWER',    mount: 'ksfo_twr',   freq: '120.5 TWR' },
+        { label: 'APPROACH', mount: 'ksfo_app',   freq: '135.1 APP' },
+        { label: 'GROUND',   mount: 'ksfo',       freq: '121.9 GND' },
+      ]
+    },
+    HND: {
+      name: 'TOKYO HANEDA',
+      icao: 'RJTT',
+      feeds: [
+        { label: 'APPROACH', mount: 'rjtt_app',   freq: '119.1 APP' },
+        { label: 'TOWER',    mount: 'rjtt',       freq: '118.575 TWR' },
+        { label: 'ATIS',     mount: 'rjtt_atis',  freq: '128.8 ATIS' },
+      ]
+    },
+    JFK: {
+      name: 'NEW YORK JFK',
+      icao: 'KJFK',
+      feeds: [
+        { label: 'TOWER',    mount: 'kjfk_twr',       freq: '119.1 TWR' },
+        { label: 'APPROACH', mount: 'kjfk_app_rober',  freq: '132.4 APP' },
+        { label: 'GROUND',   mount: 'kjfk_gnd_twr',   freq: '121.9 GND' },
+      ]
+    },
+    LAX: {
+      name: 'LOS ANGELES INTL',
+      icao: 'KLAX',
+      feeds: [
+        { label: 'TOWER',    mount: 'klax6',   freq: '133.9 TWR' },
+        { label: 'APPROACH', mount: 'klax3',   freq: '124.5 APP' },
+        { label: 'GROUND',   mount: 'klax5',   freq: '121.65 GND' },
+      ]
+    },
+    EWR: {
+      name: 'NEWARK LIBERTY',
+      icao: 'KEWR',
+      feeds: [
+        { label: 'TOWER',    mount: 'kewr',    freq: '127.85 TWR' },
+        { label: 'APPROACH', mount: 'kewr2',   freq: '124.15 APP' },
+        { label: 'GROUND',   mount: 'kewr3',   freq: '121.8 GND' },
+      ]
+    },
+  };
+
+  // Lo-Fi Girl 24/7 stream
+  const LOFI_VIDEO_ID = 'jfKfPfyJRdk';
+
+  // ─── State ────────────────────────────────────────────────────────────────────
+  let state = {
+    playing: false,
+    airport: 'SFO',
+    feedIdx: 0,
+    musicVol: 60,
+    atcVol: 80,
+    ytPlayer: null,
+    ytReady: false,
+  };
+
+  // ─── DOM refs ─────────────────────────────────────────────────────────────────
+  const atcAudio     = document.getElementById('atc-audio');
+  const playBtn      = document.getElementById('play-btn');
+  const displayName  = document.getElementById('display-name');
+  const displayIcao  = document.getElementById('display-icao');
+  const statusBadge  = document.getElementById('status-badge');
+  const statusText   = document.getElementById('status-text');
+  const loadingMsg   = document.getElementById('loading-msg');
+  const freqDisplay  = document.getElementById('freq-display');
+  const musicVolSlider = document.getElementById('music-vol');
+  const atcVolSlider   = document.getElementById('atc-vol');
+  const musicVolVal    = document.getElementById('music-vol-val');
+  const atcVolVal      = document.getElementById('atc-vol-val');
+  const waveform       = document.getElementById('waveform');
+
+  // ─── Waveform bars ───────────────────────────────────────────────────────────
+  const NUM_BARS = 40;
+  (function buildWaveform() {
+    for (let i = 0; i < NUM_BARS; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'wave-bar';
+      const maxH = 4 + Math.random() * 24;
+      const dur  = 0.4 + Math.random() * 0.7;
+      const dly  = Math.random() * 1.0;
+      bar.style.setProperty('--max-height', maxH + 'px');
+      bar.style.setProperty('--duration',   dur  + 's');
+      bar.style.setProperty('--delay',      dly  + 's');
+      waveform.appendChild(bar);
+    }
+  })();
+
+  function setWaveformActive(active) {
+    waveform.querySelectorAll('.wave-bar').forEach(b => {
+      if (active) b.classList.add('active');
+      else        b.classList.remove('active');
+    });
+  }
+
+  // ─── Airport selector ────────────────────────────────────────────────────────
+  const airportSelector = document.getElementById('airport-selector');
+  Object.keys(AIRPORTS).forEach(code => {
+    const btn = document.createElement('button');
+    btn.className = 'airport-btn' + (code === state.airport ? ' active' : '');
+    btn.textContent = code;
+    btn.dataset.airport = code;
+    btn.addEventListener('click', () => selectAirport(code));
+    airportSelector.appendChild(btn);
+  });
+
+  // ─── Feed selector ───────────────────────────────────────────────────────────
+  function buildFeedOptions() {
+    const container = document.getElementById('feed-options');
+    container.innerHTML = '';
+    const feeds = AIRPORTS[state.airport].feeds;
+    feeds.forEach((f, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'feed-opt' + (i === state.feedIdx ? ' active' : '');
+      btn.textContent = f.label;
+      btn.addEventListener('click', () => selectFeed(i));
+      container.appendChild(btn);
+    });
+  }
+
+  buildFeedOptions();
+
+  // ─── Helpers ─────────────────────────────────────────────────────────────────
+  function currentFeed() {
+    return AIRPORTS[state.airport].feeds[state.feedIdx];
+  }
+
+  function streamUrl() {
+    return `https://d.liveatc.net/${currentFeed().mount}`;
+  }
+
+  function updateDisplay() {
+    const airport = AIRPORTS[state.airport];
+    const feed    = currentFeed();
+    displayName.textContent = airport.name;
+    displayIcao.textContent = `${airport.icao} • ${feed.label}`;
+    freqDisplay.textContent = `LIVEATC.NET • ${feed.freq}`;
+    document.querySelectorAll('.airport-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.airport === state.airport);
+    });
+  }
+
+  function setStatus(status) {
+    statusBadge.className = 'status-badge' + (status === 'LIVE' ? ' live' : '');
+    statusText.textContent = status;
+  }
+
+  function setLoading(msg) {
+    loadingMsg.textContent = msg || '';
+  }
+
+  // ─── Airport / Feed selection ─────────────────────────────────────────────────
+  function selectAirport(code) {
+    if (state.airport === code) return;
+    state.airport = code;
+    state.feedIdx = 0;
+    updateDisplay();
+    buildFeedOptions();
+    if (state.playing) reloadAtc();
+  }
+
+  function selectFeed(idx) {
+    if (state.feedIdx === idx) return;
+    state.feedIdx = idx;
+    updateDisplay();
+    buildFeedOptions();
+    if (state.playing) reloadAtc();
+  }
+
+  // ─── ATC Audio ───────────────────────────────────────────────────────────────
+  function reloadAtc() {
+    setStatus('TUNING');
+    setLoading('connecting to feed…');
+    atcAudio.src = '';
+    atcAudio.load();
+    atcAudio.src = streamUrl();
+    atcAudio.volume = state.atcVol / 100;
+
+    const playPromise = atcAudio.play();
+    if (playPromise) {
+      playPromise
+        .then(() => {
+          setStatus('LIVE');
+          setLoading('');
+        })
+        .catch(err => {
+          setStatus('ERROR');
+          setLoading('feed unavailable — try another frequency');
+        });
+    }
+  }
+
+  atcAudio.addEventListener('waiting', () => {
+    if (state.playing) { setStatus('BUFFERING'); setLoading('buffering…'); }
+  });
+
+  atcAudio.addEventListener('playing', () => {
+    if (state.playing) { setStatus('LIVE'); setLoading(''); }
+  });
+
+  atcAudio.addEventListener('error', () => {
+    if (state.playing) {
+      setStatus('ERROR');
+      setLoading('feed unavailable — try another frequency');
+    }
+  });
+
+  // ─── YouTube Music Player ────────────────────────────────────────────────────
+  window.onYouTubeIframeAPIReady = function() {
+    state.ytPlayer = new YT.Player('yt-player', {
+      videoId: LOFI_VIDEO_ID,
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        loop: 1,
+        playlist: LOFI_VIDEO_ID,
+        origin: window.location.origin,
+      },
+      events: {
+        onReady: (e) => {
+          state.ytReady = true;
+          e.target.setVolume(state.musicVol);
+        },
+      }
+    });
+  };
+
+  // Load YouTube IFrame API
+  (function loadYT() {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+  })();
+
+  // ─── Play / Pause ─────────────────────────────────────────────────────────────
+  playBtn.addEventListener('click', () => {
+    if (!state.playing) {
+      state.playing = true;
+      playBtn.textContent = '⏸  SIGNING OFF';
+      setWaveformActive(true);
+
+      // Start music
+      if (state.ytReady && state.ytPlayer) {
+        state.ytPlayer.setVolume(state.musicVol);
+        state.ytPlayer.playVideo();
+      }
+
+      // Start ATC
+      reloadAtc();
+
+    } else {
+      state.playing = false;
+      playBtn.textContent = '▶  TUNE IN';
+      setStatus('IDLE');
+      setLoading('');
+      setWaveformActive(false);
+
+      // Stop music
+      if (state.ytReady && state.ytPlayer) {
+        state.ytPlayer.pauseVideo();
+      }
+
+      // Stop ATC
+      atcAudio.pause();
+      atcAudio.src = '';
+    }
+  });
+
+  // ─── Volume sliders ───────────────────────────────────────────────────────────
+  musicVolSlider.addEventListener('input', () => {
+    state.musicVol = parseInt(musicVolSlider.value);
+    musicVolVal.textContent = state.musicVol;
+    if (state.ytReady && state.ytPlayer) {
+      state.ytPlayer.setVolume(state.musicVol);
+    }
+  });
+
+  atcVolSlider.addEventListener('input', () => {
+    state.atcVol = parseInt(atcVolSlider.value);
+    atcVolVal.textContent = state.atcVol;
+    atcAudio.volume = state.atcVol / 100;
+  });
+
+  // ─── Init ─────────────────────────────────────────────────────────────────────
+  updateDisplay();
+  setStatus('IDLE');
+</script>
+
+</body>
+</html>
