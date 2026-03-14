@@ -225,7 +225,7 @@
     .play-btn {
       width: 100%;
       padding: 0.9rem;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: #4a9eff;
       border: none;
       border-radius: 8px;
       color: white;
@@ -435,7 +435,7 @@
   </div>
 
   <div class="controls">
-    <button class="play-btn" id="play-btn">▶ &nbsp; TUNE IN</button>
+    <button class="play-btn" id="play-btn">play</button>
 
     <div class="volume-controls">
       <div class="volume-row">
@@ -718,7 +718,7 @@
   playBtn.addEventListener('click', () => {
     if (!state.playing) {
       state.playing = true;
-      playBtn.textContent = '⏸  SIGNING OFF';
+      playBtn.textContent = 'pause';
       setWaveformActive(true);
 
       // Start music
@@ -732,7 +732,7 @@
 
     } else {
       state.playing = false;
-      playBtn.textContent = '▶  TUNE IN';
+      playBtn.textContent = 'play';
       setStatus('IDLE');
       setLoading('');
       setWaveformActive(false);
