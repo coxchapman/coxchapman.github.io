@@ -384,23 +384,70 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Hidden YouTube container */
-    #yt-container {
-      position: fixed;
-      bottom: -100px;
-      left: -100px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      pointer-events: none;
+    /* Test panel */
+    #test-panel {
+      display: none;
+      margin-top: 1.5rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
     }
+
+    #test-panel h3 {
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+    }
+
+    .test-result {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding: 0.2rem 0;
+      color: var(--text);
+    }
+
+    .test-pass { color: #2a9e6a; }
+    .test-fail { color: #e05555; }
+
+    #run-tests-btn {
+      margin-top: 0.75rem;
+      padding: 0.4rem 0.9rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-dim);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #run-tests-btn:hover { border-color: var(--accent); color: var(--text); }
+
+    #show-tests-btn {
+      display: block;
+      margin: 0.75rem auto 0;
+      padding: 0.3rem 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      opacity: 0.5;
+    }
+
+    #show-tests-btn:hover { opacity: 1; }
   </style>
 </head>
 <body>
-
-<div id="yt-container">
-  <div id="yt-player"></div>
-</div>
 
 <div class="container">
 
@@ -462,14 +509,25 @@
     <div class="footer-text">
       atc audio via <a href="https://www.liveatc.net" target="_blank" rel="noopener">liveatc.net</a>
       &nbsp;·&nbsp;
-      music via <a href="https://www.youtube.com/@LofiGirl" target="_blank" rel="noopener">lofi girl</a>
+      music via <a href="https://somafm.com/dronezone/" target="_blank" rel="noopener">somafm drone zone</a>
     </div>
+    <button id="show-tests-btn">run tests</button>
   </footer>
+
+  <div id="test-panel">
+    <h3>TESTS</h3>
+    <div id="test-results"></div>
+    <button id="run-tests-btn">run again</button>
+  </div>
 
 </div>
 
-<!-- Hidden ATC audio element -->
+<!-- Hidden audio elements -->
 <audio id="atc-audio" crossorigin="anonymous"></audio>
+<audio id="music-audio" loop crossorigin="anonymous">
+  <source src="https://ice6.somafm.com/dronezone-128-mp3" type="audio/mpeg">
+  <source src="https://ice2.somafm.com/dronezone-128-mp3" type="audio/mpeg">
+</audio>
 
 <script>
   // ─── Airport / Feed Configuration ────────────────────────────────────────────
@@ -530,9 +588,6 @@
     },
   };
 
-  // Lo-Fi Girl 24/7 stream
-  const LOFI_VIDEO_ID = 'jfKfPfyJRdk';
-
   // ─── State ────────────────────────────────────────────────────────────────────
   let state = {
     playing: false,
@@ -540,12 +595,11 @@
     feedIdx: 0,
     musicVol: 60,
     atcVol: 80,
-    ytPlayer: null,
-    ytReady: false,
   };
 
   // ─── DOM refs ─────────────────────────────────────────────────────────────────
   const atcAudio     = document.getElementById('atc-audio');
+  const musicAudio   = document.getElementById('music-audio');
   const playBtn      = document.getElementById('play-btn');
   const displayName  = document.getElementById('display-name');
   const displayIcao  = document.getElementById('display-icao');
@@ -694,34 +748,8 @@
     }
   });
 
-  // ─── YouTube Music Player ────────────────────────────────────────────────────
-  window.onYouTubeIframeAPIReady = function() {
-    state.ytPlayer = new YT.Player('yt-player', {
-      videoId: LOFI_VIDEO_ID,
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        disablekb: 1,
-        fs: 0,
-        loop: 1,
-        playlist: LOFI_VIDEO_ID,
-        origin: window.location.origin,
-      },
-      events: {
-        onReady: (e) => {
-          state.ytReady = true;
-          e.target.setVolume(state.musicVol);
-        },
-      }
-    });
-  };
-
-  // Load YouTube IFrame API
-  (function loadYT() {
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-  })();
+  // ─── Music audio init ─────────────────────────────────────────────────────────
+  musicAudio.volume = state.musicVol / 100;
 
   // ─── Play / Pause ─────────────────────────────────────────────────────────────
   playBtn.addEventListener('click', () => {
@@ -730,13 +758,9 @@
       playBtn.textContent = 'pause';
       setWaveformActive(true);
 
-      // Start music
-      if (state.ytReady && state.ytPlayer) {
-        state.ytPlayer.setVolume(state.musicVol);
-        state.ytPlayer.playVideo();
-      }
+      musicAudio.volume = state.musicVol / 100;
+      musicAudio.play().catch(() => {});
 
-      // Start ATC
       reloadAtc();
 
     } else {
@@ -746,12 +770,8 @@
       setLoading('');
       setWaveformActive(false);
 
-      // Stop music
-      if (state.ytReady && state.ytPlayer) {
-        state.ytPlayer.pauseVideo();
-      }
+      musicAudio.pause();
 
-      // Stop ATC
       atcAudio.pause();
       atcAudio.src = '';
     }
@@ -761,9 +781,7 @@
   musicVolSlider.addEventListener('input', () => {
     state.musicVol = parseInt(musicVolSlider.value);
     musicVolVal.textContent = state.musicVol;
-    if (state.ytReady && state.ytPlayer) {
-      state.ytPlayer.setVolume(state.musicVol);
-    }
+    musicAudio.volume = state.musicVol / 100;
   });
 
   atcVolSlider.addEventListener('input', () => {
@@ -771,6 +789,67 @@
     atcVolVal.textContent = state.atcVol;
     atcAudio.volume = state.atcVol / 100;
   });
+
+  // ─── Tests ───────────────────────────────────────────────────────────────────
+  function runTests() {
+    const results = [];
+
+    function assert(desc, condition) {
+      results.push({ desc, pass: !!condition });
+    }
+
+    // 1. Slider exists in DOM
+    assert('music volume slider exists', !!musicVolSlider);
+
+    // 2. Initial slider value matches state
+    assert('initial slider value is 60', parseInt(musicVolSlider.value) === 60);
+
+    // 3. Initial audio volume matches state
+    assert('initial audio volume matches state (0.6)',
+      Math.abs(musicAudio.volume - state.musicVol / 100) < 0.001);
+
+    // 4. Changing slider updates state.musicVol
+    const prev = state.musicVol;
+    musicVolSlider.value = 42;
+    musicVolSlider.dispatchEvent(new Event('input'));
+    assert('slider input updates state.musicVol', state.musicVol === 42);
+
+    // 5. Changing slider updates audio.volume
+    assert('slider input updates musicAudio.volume',
+      Math.abs(musicAudio.volume - 0.42) < 0.001);
+
+    // 6. Display value reflects slider
+    assert('volume display label updates', musicVolVal.textContent === '42');
+
+    // 7. Restore original value
+    musicVolSlider.value = prev;
+    musicVolSlider.dispatchEvent(new Event('input'));
+    assert('volume restores to original after reset', state.musicVol === prev);
+
+    return results;
+  }
+
+  function renderTests() {
+    const panel = document.getElementById('test-panel');
+    const container = document.getElementById('test-results');
+    panel.style.display = 'block';
+    container.innerHTML = '';
+    const results = runTests();
+    results.forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'test-result';
+      row.innerHTML = `<span class="${r.pass ? 'test-pass' : 'test-fail'}">${r.pass ? '✓' : '✗'}</span> ${r.desc}`;
+      container.appendChild(row);
+    });
+    const passed = results.filter(r => r.pass).length;
+    const summary = document.createElement('div');
+    summary.style.cssText = 'margin-top:0.6rem;color:var(--text-dim);';
+    summary.textContent = `${passed}/${results.length} passed`;
+    container.appendChild(summary);
+  }
+
+  document.getElementById('show-tests-btn').addEventListener('click', renderTests);
+  document.getElementById('run-tests-btn').addEventListener('click', renderTests);
 
   // ─── Init ─────────────────────────────────────────────────────────────────────
   updateDisplay();
