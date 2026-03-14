@@ -12,16 +12,16 @@
     }
 
     :root {
-      --bg: #0d0f14;
-      --bg2: #13161e;
-      --bg3: #1a1e2a;
+      --bg: #fffff8;
+      --bg2: #f5f5ee;
+      --bg3: #eeeee8;
       --accent: #4a9eff;
       --accent2: #7c6af7;
-      --green: #3ecf8e;
-      --text: #c8d0e0;
-      --text-dim: #5a6380;
-      --text-bright: #e8eaf0;
-      --border: #2a2f40;
+      --green: #2a9e6a;
+      --text: #111;
+      --text-dim: #666;
+      --text-bright: #111;
+      --border: #d8d8d0;
     }
 
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap');
@@ -40,31 +40,6 @@
       overflow-x: hidden;
     }
 
-    /* Ambient background glow */
-    body::before {
-      content: '';
-      position: fixed;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60vw;
-      height: 60vw;
-      background: radial-gradient(circle, rgba(74, 158, 255, 0.04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      bottom: -10%;
-      right: -10%;
-      width: 40vw;
-      height: 40vw;
-      background: radial-gradient(circle, rgba(124, 106, 247, 0.04) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
 
     .container {
       width: 100%;
@@ -96,93 +71,6 @@
       opacity: 0.6;
     }
 
-    /* Radar animation */
-    .radar-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
-    }
-
-    .radar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      background: var(--bg2);
-    }
-
-    .radar::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: conic-gradient(
-        from 0deg,
-        transparent 0deg,
-        rgba(74, 158, 255, 0.15) 30deg,
-        transparent 60deg
-      );
-      border-radius: 50%;
-      animation: radar-sweep 3s linear infinite;
-    }
-
-    .radar-cross {
-      position: absolute;
-      inset: 0;
-    }
-
-    .radar-cross::before,
-    .radar-cross::after {
-      content: '';
-      position: absolute;
-      background: var(--border);
-    }
-
-    .radar-cross::before {
-      width: 1px;
-      height: 100%;
-      left: 50%;
-    }
-
-    .radar-cross::after {
-      height: 1px;
-      width: 100%;
-      top: 50%;
-    }
-
-    .radar-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-    }
-
-    .radar-ring:nth-child(1) { inset: 20%; }
-    .radar-ring:nth-child(2) { inset: 40%; }
-
-    .radar-dot {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 6px var(--green);
-      animation: blink 2s ease-in-out infinite;
-    }
-
-    .radar-dot:nth-child(3) { top: 28%; left: 58%; animation-delay: 0s; }
-    .radar-dot:nth-child(4) { top: 55%; left: 30%; animation-delay: 0.7s; }
-    .radar-dot:nth-child(5) { top: 38%; left: 70%; animation-delay: 1.4s; }
-
-    @keyframes radar-sweep {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
 
     /* Airport selector */
     .airport-selector {
@@ -517,17 +405,7 @@
 <div class="container">
 
   <header>
-    <div class="radar-wrap">
-      <div class="radar">
-        <div class="radar-cross"></div>
-        <div class="radar-ring"></div>
-        <div class="radar-ring"></div>
-        <div class="radar-dot"></div>
-        <div class="radar-dot"></div>
-        <div class="radar-dot"></div>
-      </div>
-    </div>
-    <div class="site-title">lofi air traffic control</div>
+<div class="site-title">lofi air traffic control</div>
     <div class="site-subtitle">lofi beats • live atc audio</div>
   </header>
 
