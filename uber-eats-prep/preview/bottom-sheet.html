@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bottom sheet — anatomy</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 0; background: #757575; height: 360px; position: relative; overflow: hidden; font-family: var(--font-text); }
+  .map { position: absolute; inset: 0; background-image: url('../assets/map-placeholder.svg'); background-size: cover; opacity: 0.85; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; background: #FFF; border-top-left-radius: 16px; border-top-right-radius: 16px; padding: 14px 20px 20px; box-shadow: 0 -4px 24px rgba(0,0,0,0.12); }
+  .grab { width: 36px; height: 4px; background: #CBCBCB; border-radius: 2px; margin: 0 auto 16px; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+  .car { width: 44px; height: 32px; background: #EEE; border-radius: 4px; display: flex; align-items: center; justify-content: center; font: 700 14px var(--font-text); }
+  .ridename { font: 700 16px var(--font-text); }
+  .ridemeta { font: 400 12px/14px var(--font-text); color: #757575; }
+  .price { margin-left: auto; font: 700 16px var(--font-text); }
+  .selected { background: #F6F6F6; border-radius: 8px; margin: 0 -8px; padding: 8px; }
+  .cta { margin-top: 14px; background: #000; color: #FFF; padding: 14px; border-radius: 8px; text-align: center; font: 500 16px var(--font-text); }
+</style>
+</head>
+<body>
+  <div class="map"></div>
+  <div class="sheet">
+    <div class="grab"></div>
+    <div class="row selected">
+      <div class="car">🚗</div>
+      <div><div class="ridename">UberX</div><div class="ridemeta">3 min · 4 seats</div></div>
+      <div class="price">$12.50</div>
+    </div>
+    <div class="row">
+      <div class="car">🚙</div>
+      <div><div class="ridename">UberXL</div><div class="ridemeta">5 min · 6 seats</div></div>
+      <div class="price">$18.20</div>
+    </div>
+    <div class="cta">Choose UberX</div>
+  </div>
+</body>
+</html>

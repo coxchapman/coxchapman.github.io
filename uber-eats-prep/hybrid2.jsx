@@ -1,0 +1,513 @@
+// hybrid2.jsx — Variation E: Plate brand (DM Sans, fresh green, yellow)
+// wearing Hearth's UX (schedule-first onboarding, editorial meal rows).
+// Sub-brand kept as "Plate" since the visual identity is Plate's.
+
+// ── E1: Home — Plate visual, Hearth-style scheduling banner ──────────
+function Hybrid2Home() {
+  return (
+    <IOSDevice width={402} height={874}>
+      <div style={{ background: PANTRY.bg, minHeight: '100%', paddingTop: 54 }}>
+        <HomeHeader />
+        <div style={{ height: 4 }} />
+        <ModePills active="All" highlight="Prep" accent={PLATE.accent} />
+
+        <div style={{ display: 'flex', gap: 8, padding: '16px 16px 6px', overflowX: 'auto' }}>
+          <CategoryTile label="Dine Out" bg="#EEEBE2">
+            <span style={{ fontSize: 28 }}>🍽️</span>
+          </CategoryTile>
+          <CategoryTile label="Pizza" bg="#FDE2C2">
+            <span style={{ fontSize: 28 }}>🍕</span>
+          </CategoryTile>
+          <CategoryTile label="Plate" bg={PLATE.accent} active>
+            <div style={{ position: 'relative', width: 36, height: 32 }}>
+              <div style={{
+                position: 'absolute', bottom: 0, left: 0, right: 0,
+                height: 16, borderRadius: '0 0 18px 18px',
+                background: '#fff',
+              }} />
+              <div style={{
+                position: 'absolute', top: 6, left: 11, width: 14, height: 14,
+                borderRadius: '50%', background: PLATE.yellow,
+              }} />
+            </div>
+          </CategoryTile>
+          <CategoryTile label="Grocery" bg="#FFF4C6">
+            <span style={{ fontSize: 28 }}>🥬</span>
+          </CategoryTile>
+          <CategoryTile label="Healthy" bg="#D7EBD8">
+            <span style={{ fontSize: 28 }}>🥗</span>
+          </CategoryTile>
+          <CategoryTile label="Ice Cream" bg="#FFD9CC">
+            <span style={{ fontSize: 28 }}>🍨</span>
+          </CategoryTile>
+        </div>
+
+        <FilterChips />
+
+        {/* Plate-styled banner with Hearth's "plan your week" UX */}
+        <div style={{ padding: '12px 16px 6px' }}>
+          <div style={{
+            background: PLATE.accent, borderRadius: 24, padding: '20px 20px 18px',
+            position: 'relative', overflow: 'hidden',
+          }}>
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '4px 10px', borderRadius: 999,
+              background: PLATE.yellow, color: PLATE.ink,
+              fontFamily: PLATE.display, fontSize: 10, fontWeight: 800,
+              letterSpacing: 0.5, textTransform: 'uppercase',
+              marginBottom: 12,
+            }}>
+              <span style={{ width: 6, height: 6, borderRadius: 3, background: PLATE.ink }} />
+              NEW · PLAN YOUR WEEK
+            </div>
+            <div style={{
+              fontFamily: PLATE.display, fontSize: 36, lineHeight: 0.92,
+              color: '#fff', letterSpacing: -1.3, fontWeight: 900,
+              marginBottom: 12,
+            }}>
+              Your<br/>week,<br/>sorted.
+            </div>
+
+            {/* 7-day strip — Hearth UX, Plate visuals */}
+            <div style={{ display: 'flex', gap: 4, marginBottom: 16, maxWidth: 240 }}>
+              {['M','T','W','T','F','S','S'].map((d, i) => {
+                const has = [true, true, true, false, true, false, false][i];
+                return (
+                  <div key={i} style={{
+                    flex: 1, display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', gap: 3,
+                  }}>
+                    <div style={{
+                      fontFamily: PLATE.display, fontSize: 9, fontWeight: 700,
+                      color: 'rgba(255,255,255,0.6)',
+                    }}>{d}</div>
+                    <div style={{
+                      width: 24, height: 26, borderRadius: 7,
+                      background: has ? PLATE.yellow : 'rgba(255,255,255,0.15)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontFamily: PLATE.display, fontSize: 11, fontWeight: 900,
+                      color: has ? PLATE.ink : 'rgba(255,255,255,0.4)',
+                    }}>{has ? '·' : ''}</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '12px 18px', borderRadius: 999,
+              background: '#fff', color: PLATE.accentDeep,
+              fontFamily: PLATE.display, fontSize: 14, fontWeight: 800,
+              letterSpacing: -0.2,
+            }}>
+              Plan your week
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke={PLATE.accentDeep} strokeWidth="2.4"><path d="M2 6h8M7 3l3 3-3 3"/></svg>
+            </div>
+
+            {/* Decorative plate in the corner */}
+            <div style={{
+              position: 'absolute', right: -34, bottom: -34, width: 160, height: 160,
+            }}>
+              <div style={{
+                position: 'absolute', inset: 0, borderRadius: '50%',
+                background: '#FFFBE8', boxShadow: 'inset 0 0 0 6px #fff',
+              }} />
+              <div style={{
+                position: 'absolute', top: 46, left: 56, width: 48, height: 48,
+                borderRadius: '50%', background: PLATE.yellow,
+              }} />
+              <div style={{
+                position: 'absolute', top: 72, left: 28, width: 64, height: 16,
+                borderRadius: 8, background: PLATE.pink, transform: 'rotate(-12deg)',
+              }} />
+            </div>
+          </div>
+        </div>
+
+        {/* Featured restaurants */}
+        <div style={{ padding: '14px 16px 4px' }}>
+          <div style={{
+            fontFamily: '-apple-system, system-ui', fontSize: 22, fontWeight: 700,
+            color: PANTRY.ink, letterSpacing: -0.4,
+          }}>Featured on Pantry</div>
+        </div>
+        <div style={{ display: 'flex', gap: 12, padding: '8px 16px 100px', overflowX: 'auto' }}>
+          {[
+            { name: 'Mamahuhu', tag: 'Buy 1, get 1', hue: 160 },
+            { name: 'Papalote', tag: '$8 off $40+', hue: 25 },
+          ].map(r => (
+            <div key={r.name} style={{ flex: '0 0 240px' }}>
+              <PhotoBlock caption={`[ ${r.name.toLowerCase()} photo ]`} hue={r.hue} sat={20} ratio={1.4} badge={r.tag} />
+              <div style={{ paddingTop: 8 }}>
+                <div style={{ fontSize: 16, fontWeight: 700, color: PANTRY.ink }}>{r.name}</div>
+                <div style={{ fontSize: 12, color: PANTRY.ink2, marginTop: 2 }}>Lowest delivery fee · 10 min</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <BottomBar active="home" />
+    </IOSDevice>
+  );
+}
+
+// ── E2: Promo — Hearth's calendar quiz, Plate's voice ──────────────────
+function Hybrid2Promo() {
+  const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  const slots = ['Dinner', 'Lunch + Dinner', 'Dinner', '', 'Dinner', 'Lunch', ''];
+
+  return (
+    <IOSDevice width={402} height={874}>
+      <div style={{ background: PLATE.bg, minHeight: '100%', paddingTop: 54 }}>
+        <div style={{
+          padding: '10px 16px 0', display: 'flex',
+          justifyContent: 'space-between', alignItems: 'center',
+        }}>
+          <div style={{
+            fontFamily: PLATE.display, fontWeight: 900, fontSize: 22,
+            color: PLATE.ink, letterSpacing: -0.6,
+            display: 'flex', alignItems: 'center', gap: 6,
+          }}>
+            <div style={{ width: 22, height: 22, borderRadius: '50%', background: PLATE.accent, position: 'relative' }}>
+              <div style={{ position: 'absolute', top: 5, left: 5, width: 12, height: 12, borderRadius: '50%', background: PLATE.yellow }} />
+            </div>
+            Plate
+          </div>
+          <div style={{
+            padding: '6px 10px', borderRadius: 999, background: '#fff',
+            border: `1px solid ${PLATE.line}`, fontFamily: PLATE.display,
+            fontSize: 12, fontWeight: 800, color: PLATE.ink2,
+          }}>1 / 3</div>
+        </div>
+
+        <div style={{ padding: '28px 24px 12px' }}>
+          <div style={{
+            fontFamily: PLATE.display, fontSize: 44, lineHeight: 0.94,
+            color: PLATE.ink, letterSpacing: -1.5, fontWeight: 900,
+          }}>
+            Tell us<br/>
+            <span style={{ color: PLATE.accentDeep }}>your week.</span>
+          </div>
+          <div style={{
+            fontSize: 14, lineHeight: 1.5, color: PLATE.ink2,
+            marginTop: 12, maxWidth: 320,
+          }}>
+            Tap the meals you want covered. We cook Sunday, drop Tuesday afternoon.
+          </div>
+        </div>
+
+        {/* Calendar card — Hearth UX, Plate visuals */}
+        <div style={{ padding: '4px 16px' }}>
+          <div style={{
+            background: '#fff', borderRadius: 18, padding: '14px 12px',
+            border: `1px solid ${PLATE.line}`,
+          }}>
+            <div style={{ display: 'flex', gap: 4 }}>
+              {days.map((d, i) => {
+                const has = slots[i];
+                return (
+                  <div key={i} style={{
+                    flex: 1, display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', gap: 6,
+                  }}>
+                    <div style={{
+                      fontFamily: PLATE.display, fontSize: 11, fontWeight: 800,
+                      color: PLATE.ink3, letterSpacing: 0.2,
+                    }}>{d}</div>
+                    <div style={{
+                      width: 36, height: 50, borderRadius: 10,
+                      background: has ? PLATE.accent : PLATE.bg,
+                      color: has ? '#fff' : PLATE.ink3,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontFamily: PLATE.display, fontSize: 20, fontWeight: 900,
+                      letterSpacing: -0.5, lineHeight: 1,
+                    }}>{20 + i}</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div style={{
+              marginTop: 14, paddingTop: 14, borderTop: `1px solid ${PLATE.line}`,
+              display: 'flex', flexDirection: 'column', gap: 10,
+            }}>
+              {[
+                { d: 'Mon · May 20', s: 'Dinner', count: 1 },
+                { d: 'Tue · May 21', s: 'Lunch + Dinner', count: 2 },
+                { d: 'Wed · May 22', s: 'Dinner', count: 1 },
+                { d: 'Fri · May 24', s: 'Dinner', count: 1 },
+              ].map((r, i) => (
+                <div key={i} style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                }}>
+                  <div>
+                    <div style={{
+                      fontFamily: PLATE.display, fontSize: 13, fontWeight: 800,
+                      color: PLATE.ink, letterSpacing: -0.2,
+                    }}>{r.d}</div>
+                    <div style={{ fontSize: 12, color: PLATE.ink2, marginTop: 1 }}>{r.s}</div>
+                  </div>
+                  <div style={{
+                    padding: '4px 10px', borderRadius: 999,
+                    background: PLATE.yellow, color: PLATE.ink,
+                    fontFamily: PLATE.display, fontSize: 11, fontWeight: 900,
+                    letterSpacing: 0.4, textTransform: 'uppercase',
+                  }}>{r.count} MEAL{r.count > 1 ? 'S' : ''}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Total + CTA — bold and confident */}
+        <div style={{ padding: '20px 24px 0' }}>
+          <div style={{
+            display: 'flex', alignItems: 'baseline', justifyContent: 'space-between',
+            paddingBottom: 14, borderBottom: `1px solid ${PLATE.line}`,
+          }}>
+            <div>
+              <div style={{
+                fontFamily: PLATE.display, fontSize: 11, fontWeight: 800,
+                letterSpacing: 1, color: PLATE.ink3, textTransform: 'uppercase',
+              }}>This week</div>
+              <div style={{
+                fontFamily: PLATE.display, fontSize: 28, fontWeight: 900,
+                color: PLATE.ink, marginTop: 2, letterSpacing: -1,
+              }}>
+                5 <span style={{ color: PLATE.accentDeep }}>meals</span>
+              </div>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{
+                fontFamily: PLATE.display, fontSize: 28, fontWeight: 900,
+                color: PLATE.ink, letterSpacing: -1,
+              }}>$49.95</div>
+              <div style={{
+                fontFamily: PLATE.display, fontSize: 11, fontWeight: 700,
+                color: PLATE.ink3, letterSpacing: 0.2,
+              }}>$9.99 / meal</div>
+            </div>
+          </div>
+          <div style={{
+            marginTop: 16, background: PLATE.ink, color: '#fff', borderRadius: 999,
+            padding: '16px 20px', textAlign: 'center',
+            fontFamily: PLATE.display, fontSize: 16, fontWeight: 800, letterSpacing: -0.3,
+          }}>
+            Next: pick your meals →
+          </div>
+        </div>
+      </div>
+      <BottomBar active="browse" />
+    </IOSDevice>
+  );
+}
+
+// ── E3: Landing — Hearth's editorial row layout, Plate's voice ─────────
+function Hybrid2Landing({ cadence = 5 }) {
+  const PRICE = 9.99;
+  const meals = [
+    { n: 'Power Bowl',       sub: 'Steak, sweet potato, kale',   tag: 'TOP PICK',  kcal: 620, p: 44, hue: 28, badgeBg: PLATE.yellow,     badgeFg: PLATE.ink },
+    { n: 'Sunshine Salmon',  sub: 'Salmon, rice, mango salsa',   tag: 'NEW',       kcal: 540, p: 38, hue: 18, badgeBg: PLATE.pink,       badgeFg: PLATE.ink },
+    { n: 'Green Goddess',    sub: 'Chickpea, herbs, tahini',     tag: 'VEG',       kcal: 470, p: 22, hue: 130, badgeBg: PLATE.accent,    badgeFg: '#fff' },
+    { n: 'Asado Bowl',       sub: 'Carne asada, plantain',       tag: '+10G PRO',  kcal: 690, p: 48, hue: 22, badgeBg: PLATE.accentDeep, badgeFg: '#fff' },
+  ];
+  return (
+    <IOSDevice width={402} height={874}>
+      <div style={{ background: PLATE.bg, minHeight: '100%', paddingTop: 54 }}>
+        <div style={{
+          padding: '6px 14px 0', display: 'flex',
+          justifyContent: 'space-between', alignItems: 'center',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{
+              width: 32, height: 32, borderRadius: 16, background: '#fff',
+              border: `1px solid ${PLATE.line}`, display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
+            }}>
+              <svg width="10" height="14" viewBox="0 0 10 14" fill="none" stroke={PLATE.ink} strokeWidth="2"><path d="M8 1L1 7l7 6"/></svg>
+            </div>
+            <div style={{
+              fontFamily: PLATE.display, fontWeight: 900, fontSize: 22,
+              color: PLATE.ink, letterSpacing: -0.6,
+              display: 'flex', alignItems: 'center', gap: 6,
+            }}>
+              <div style={{ width: 22, height: 22, borderRadius: '50%', background: PLATE.accent, position: 'relative' }}>
+                <div style={{ position: 'absolute', top: 5, left: 5, width: 12, height: 12, borderRadius: '50%', background: PLATE.yellow }} />
+              </div>
+              Plate
+            </div>
+          </div>
+          <div style={{
+            fontFamily: PLATE.display, fontSize: 11, fontWeight: 800,
+            letterSpacing: 0.6, color: PLATE.ink2, textTransform: 'uppercase',
+          }}>Drops Tue · May 21</div>
+        </div>
+
+        {/* Big chunky title — Plate's voice */}
+        <div style={{ padding: '20px 24px 10px' }}>
+          <div style={{
+            fontFamily: PLATE.display, fontSize: 40, lineHeight: 0.94,
+            color: PLATE.ink, letterSpacing: -1.4, fontWeight: 900,
+          }}>
+            This week's<br/>
+            <span style={{ color: PLATE.accentDeep }}>menu.</span>
+          </div>
+          <div style={{
+            fontFamily: PLATE.display, fontSize: 11, fontWeight: 700,
+            color: PLATE.ink3, letterSpacing: 0.6, marginTop: 10,
+            textTransform: 'uppercase',
+          }}>Pick {cadence} · {PANTRY.fmt(cadence * PRICE)}/wk · skip anytime</div>
+        </div>
+
+        {/* Pick counter */}
+        <div style={{ padding: '0 16px 8px' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
+            background: '#fff', border: `1px solid ${PLATE.line}`,
+            borderRadius: 14,
+          }}>
+            <div style={{ display: 'flex', gap: 3 }}>
+              {Array.from({ length: cadence }).map((_, i) => (
+                <div key={i} style={{
+                  width: 20, height: 20, borderRadius: 5,
+                  background: i < 2 ? PLATE.accent : 'transparent',
+                  border: i < 2 ? 'none' : `1.5px dashed ${PLATE.line}`,
+                }} />
+              ))}
+            </div>
+            <div style={{
+              flex: 1, fontFamily: PLATE.display, fontSize: 11,
+              fontWeight: 800, letterSpacing: 0.4, color: PLATE.ink2,
+              textTransform: 'uppercase',
+            }}>
+              <span style={{ color: PLATE.ink }}>2</span> OF {cadence} PICKED
+            </div>
+            <div style={{
+              fontFamily: PLATE.display, fontSize: 13, fontWeight: 800,
+              color: PLATE.accentDeep,
+            }}>Auto-pick rest</div>
+          </div>
+        </div>
+
+        {/* Filter chips */}
+        <div style={{ display: 'flex', gap: 6, padding: '4px 16px', overflowX: 'auto' }}>
+          {['All', 'Meat', 'Fish', 'Veg', '<500 cal', '40g+ pro'].map((c, i) => (
+            <div key={c} style={{
+              flex: '0 0 auto', padding: '7px 14px', borderRadius: 999,
+              fontFamily: PLATE.display, fontWeight: 800, fontSize: 12,
+              background: i === 0 ? PLATE.accent : '#fff',
+              color: i === 0 ? '#fff' : PLATE.ink,
+              border: i === 0 ? 'none' : `1px solid ${PLATE.line}`,
+            }}>{c}</div>
+          ))}
+        </div>
+
+        {/* Full-bleed meal rows — Hearth's layout, Plate's voice */}
+        <div style={{
+          display: 'flex', flexDirection: 'column', gap: 12,
+          padding: '12px 16px 100px',
+        }}>
+          {meals.map((m, i) => (
+            <div key={m.n} style={{
+              background: '#fff', borderRadius: 18, overflow: 'hidden',
+              border: `1px solid ${PLATE.line}`, display: 'flex',
+            }}>
+              <div style={{ width: 130, flexShrink: 0, position: 'relative' }}>
+                <PhotoBlock caption={`[ photo ]`} hue={m.hue} sat={26} ratio={1} radius={0} />
+                <div style={{
+                  position: 'absolute', top: 8, left: 8,
+                  padding: '4px 8px', borderRadius: 6,
+                  background: m.badgeBg, color: m.badgeFg,
+                  fontFamily: PLATE.display, fontSize: 9, fontWeight: 900,
+                  letterSpacing: 0.5,
+                }}>{m.tag}</div>
+              </div>
+              <div style={{
+                flex: 1, padding: '16px 16px 16px 18px', display: 'flex',
+                flexDirection: 'column', justifyContent: 'space-between',
+                minWidth: 0,
+              }}>
+                <div>
+                  <div style={{
+                    fontFamily: PLATE.display, fontWeight: 900, fontSize: 18,
+                    color: PLATE.ink, letterSpacing: -0.5, lineHeight: 1.05,
+                    marginBottom: 4,
+                  }}>{m.n}</div>
+                  <div style={{ fontSize: 12, color: PLATE.ink2, lineHeight: 1.35 }}>{m.sub}</div>
+                </div>
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  marginTop: 10,
+                }}>
+                  <div style={{
+                    fontFamily: PLATE.display, fontSize: 10, fontWeight: 800,
+                    letterSpacing: 0.4, color: PLATE.accentDeep,
+                  }}>{m.p}G PRO · {m.kcal} CAL</div>
+                  <div style={{
+                    padding: '6px 14px', borderRadius: 999,
+                    background: i < 2 ? PLATE.accent : PLATE.ink,
+                    color: '#fff',
+                    fontFamily: PLATE.display, fontSize: 12, fontWeight: 800,
+                    display: 'inline-flex', alignItems: 'center', gap: 5,
+                  }}>
+                    {i < 2 && (
+                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" strokeWidth="2.4"><path d="M2 5l2 2 4-5"/></svg>
+                    )}
+                    {i < 2 ? 'Added' : 'Add'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <BottomBar active="browse" />
+    </IOSDevice>
+  );
+}
+
+// ── E4: Launch promo — Plate brand on Hearth's pattern ─────────────────
+function Hybrid2Launch() {
+  return (
+    <LaunchScreen
+      notchBg="#1d1d1d"
+      voucher={
+        <PromoVoucher
+          cardBg="#fff"
+          iconBg={PLATE.accent}
+          icon={
+            <div style={{ position: 'relative', width: 60, height: 56 }}>
+              <div style={{
+                position: 'absolute', bottom: 0, left: 0, right: 0,
+                height: 28, borderRadius: '0 0 30px 30px', background: '#fff',
+              }} />
+              <div style={{
+                position: 'absolute', top: 10, left: 18, width: 24, height: 24,
+                borderRadius: '50%', background: PLATE.yellow,
+              }} />
+            </div>
+          }
+          eyebrow={
+            <span style={{
+              display: 'inline-block', padding: '3px 8px', borderRadius: 999,
+              background: PLATE.yellow, color: PLATE.ink, fontFamily: PLATE.display,
+              fontWeight: 900, fontSize: 10, letterSpacing: 0.8,
+            }}>NEW IN SAN DIEGO</span>
+          }
+          eyebrowStyle={{ letterSpacing: 0, textTransform: 'none', color: PLATE.ink2 }}
+          titleNode={<>Your week of meals, <span style={{ color: PLATE.accentDeep }}>20% off</span>.</>}
+          titleStyle={{ fontFamily: PLATE.display, fontWeight: 900, fontSize: 28, letterSpacing: -1, color: PLATE.ink, lineHeight: 0.98 }}
+          body="Pick the days you need covered. We cook Sunday, drop Tuesday. First shipment 20% off."
+          meta="Code applied at checkout · ends June 4"
+          metaStyle={{ fontFamily: PLATE.display, fontSize: 11, fontWeight: 700, letterSpacing: 0.4, color: PLATE.ink2, textTransform: 'uppercase' }}
+          ctaLabel="Plan my first week →"
+          ctaBg={PLATE.ink}
+          ctaFg={PLATE.yellow}
+        />
+      }
+    />
+  );
+}
+
+Object.assign(window, { Hybrid2Home, Hybrid2Promo, Hybrid2Landing, Hybrid2Launch });

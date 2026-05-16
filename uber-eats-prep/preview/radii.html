@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; background: var(--background-primary); }
+  body { padding: 28px; box-sizing: border-box; display: flex; gap: 28px; align-items: center; justify-content: space-around; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .square { background: var(--mono-1000); width: 72px; height: 72px; }
+  .name { font-size: 11px; font-weight: 500; color: var(--content-primary); }
+  .label { font-family: var(--font-mono); font-size: 10px; color: var(--content-tertiary); }
+</style>
+</head>
+<body>
+  <div class="col"><div class="square" style="border-radius: 4px"></div><div class="name">radius-100</div><div class="label">4px · chips</div></div>
+  <div class="col"><div class="square" style="border-radius: 8px"></div><div class="name">radius-200</div><div class="label">8px · inputs</div></div>
+  <div class="col"><div class="square" style="border-radius: 12px"></div><div class="name">radius-300</div><div class="label">12px · cards</div></div>
+  <div class="col"><div class="square" style="border-radius: 16px"></div><div class="name">radius-400</div><div class="label">16px · sheets</div></div>
+  <div class="col"><div class="square" style="border-radius: 9999px"></div><div class="name">pill</div><div class="label">∞ · circle</div></div>
+</body>
+</html>

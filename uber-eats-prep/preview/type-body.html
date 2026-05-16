@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Type — Body & Labels</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--mono-0); display: flex; flex-direction: column; gap: 12px; }
+  .row { display: flex; align-items: baseline; gap: 14px; }
+  .lbl { width: 130px; font: 500 11px var(--font-mono); color: var(--content-tertiary); }
+  .spec { font: 400 11px var(--font-mono); color: var(--content-tertiary); margin-left: auto; }
+  .p18 { font: 400 18px/28px var(--font-text); }
+  .p16 { font: 400 16px/24px var(--font-text); }
+  .p14 { font: 400 14px/20px var(--font-text); }
+  .p12 { font: 400 12px/16px var(--font-text); }
+  .lbl18 { font: 500 18px/24px var(--font-text); }
+  .lbl14 { font: 500 14px/20px var(--font-text); }
+  .mono14 { font: 400 14px/20px var(--font-mono); }
+</style>
+</head>
+<body>
+  <div class="row"><div class="lbl">paragraph-large</div><div class="p18">Your driver is 3 mins away</div><div class="spec">18 / 28 / 400</div></div>
+  <div class="row"><div class="lbl">paragraph-medium</div><div class="p16">Your driver is 3 mins away</div><div class="spec">16 / 24 / 400</div></div>
+  <div class="row"><div class="lbl">paragraph-small</div><div class="p14">Your driver is 3 mins away</div><div class="spec">14 / 20 / 400</div></div>
+  <div class="row"><div class="lbl">paragraph-xsmall</div><div class="p12">Your driver is 3 mins away</div><div class="spec">12 / 16 / 400</div></div>
+  <div class="row"><div class="lbl">label-large</div><div class="lbl18">Confirm pickup</div><div class="spec">18 / 24 / 500</div></div>
+  <div class="row"><div class="lbl">label-small</div><div class="lbl14">Add a payment method</div><div class="spec">14 / 20 / 500</div></div>
+  <div class="row"><div class="lbl">mono</div><div class="mono14">$12.50 · ETA 3:42 PM</div><div class="spec">14 / 20 / 400</div></div>
+</body>
+</html>

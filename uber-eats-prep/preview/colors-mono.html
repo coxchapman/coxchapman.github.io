@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Colors — Mono</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--mono-0); }
+  .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; }
+  .sw { display: flex; flex-direction: column; gap: 6px; }
+  .chip { aspect-ratio: 1.2; border-radius: var(--radius-200); border: 1px solid var(--mono-200); }
+  .name { font: 500 11px/14px var(--font-text); color: var(--content-primary); }
+  .hex { font: 400 10px/12px var(--font-mono); color: var(--content-tertiary); }
+</style>
+</head>
+<body>
+  <div class="row" id="row"></div>
+  <script>
+    const steps = [
+      ['mono-0','#FFFFFF'], ['mono-50','#FAFAFA'], ['mono-100','#F6F6F6'],
+      ['mono-200','#EEEEEE'], ['mono-300','#E2E2E2'], ['mono-400','#CBCBCB'],
+      ['mono-500','#AFAFAF'], ['mono-600','#757575'], ['mono-700','#545454'],
+      ['mono-800','#333333'], ['mono-900','#1F1F1F'], ['mono-1000','#000000']
+    ];
+    document.getElementById('row').innerHTML = steps.map(([n,h]) =>
+      `<div class="sw"><div class="chip" style="background:${h}"></div>
+       <div class="name">${n.replace('mono-','')}</div><div class="hex">${h}</div></div>`
+    ).join('');
+  </script>
+</body>
+</html>

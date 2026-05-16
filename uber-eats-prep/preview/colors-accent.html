@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Colors — Accent (Blue)</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin: 0; padding: 20px; background: var(--mono-0); }
+  .row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .sw { display: flex; flex-direction: column; gap: 6px; }
+  .chip { aspect-ratio: 1.6; border-radius: var(--radius-200); border: 1px solid rgba(0,0,0,0.06); position: relative; }
+  .chip.canonical::after { content: "Uber Blue"; position: absolute; top: 6px; left: 8px; font: 500 10px var(--font-text); color: #fff; }
+  .name { font: 500 12px var(--font-text); color: var(--content-primary); }
+  .hex { font: 400 11px var(--font-mono); color: var(--content-tertiary); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:#EFF3FE"></div><div class="name">accent-50</div><div class="hex">#EFF3FE</div></div>
+    <div class="sw"><div class="chip" style="background:#D4E2FC"></div><div class="name">accent-100</div><div class="hex">#D4E2FC</div></div>
+    <div class="sw"><div class="chip" style="background:#A0BFF8"></div><div class="name">accent-200</div><div class="hex">#A0BFF8</div></div>
+    <div class="sw"><div class="chip" style="background:#5B91F5"></div><div class="name">accent-300</div><div class="hex">#5B91F5</div></div>
+    <div class="sw"><div class="chip canonical" style="background:#276EF1"></div><div class="name">accent-400</div><div class="hex">#276EF1</div></div>
+    <div class="sw"><div class="chip" style="background:#1E54B7"></div><div class="name">accent-500</div><div class="hex">#1E54B7</div></div>
+    <div class="sw"><div class="chip" style="background:#174291"></div><div class="name">accent-600</div><div class="hex">#174291</div></div>
+  </div>
+</body>
+</html>

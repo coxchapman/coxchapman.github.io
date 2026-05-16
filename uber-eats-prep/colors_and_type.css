@@ -1,0 +1,360 @@
+/* =============================================================================
+   Uber Design System — colors & type tokens
+   Based on Base Web (https://github.com/uber/baseweb) light + dark themes.
+   Import this file first; everything in ui_kits/, slides/, and preview/ relies on it.
+   ============================================================================= */
+
+/* ---------------------- Fonts ---------------------- */
+/* Uber Move is exclusively licensed; we substitute Hanken Grotesk + JetBrains Mono.
+   Files are under ./fonts/ (loaded via @font-face below) and additionally via
+   Google Fonts in the <head> of each ui_kit page for redundancy. */
+
+@font-face {
+  font-family: "UberMoveSub";
+  src: local("Hanken Grotesk"), local("HankenGrotesk-Regular");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "UberMoveSub";
+  src: local("Hanken Grotesk Medium"), local("HankenGrotesk-Medium");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "UberMoveSub";
+  src: local("Hanken Grotesk Bold"), local("HankenGrotesk-Bold");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+
+  /* ============================================================
+     COLOR TOKENS — primitive scale (Base Web mono + accent ramps)
+     ============================================================ */
+
+  /* ------ Mono (grayscale, primary palette) ------ */
+  --mono-0:     #FFFFFF;
+  --mono-50:    #FAFAFA;
+  --mono-100:   #F6F6F6;
+  --mono-200:   #EEEEEE;
+  --mono-300:   #E2E2E2;
+  --mono-400:   #CBCBCB;
+  --mono-500:   #AFAFAF;
+  --mono-600:   #757575;
+  --mono-700:   #545454;
+  --mono-800:   #333333;
+  --mono-900:   #1F1F1F;
+  --mono-1000:  #000000;
+
+  /* ------ Accent (Uber Blue — used sparingly) ------ */
+  --accent-50:   #EFF3FE;
+  --accent-100:  #D4E2FC;
+  --accent-200:  #A0BFF8;
+  --accent-300:  #5B91F5;
+  --accent-400:  #276EF1; /* Uber Blue — the canonical accent */
+  --accent-500:  #1E54B7;
+  --accent-600:  #174291;
+  --accent-700:  #102C60;
+
+  /* ------ Positive (Uber Green — Eats/Drive primary action) ------ */
+  --positive-50:   #E6F2ED;
+  --positive-100:  #BEDDCA;
+  --positive-200:  #7CBA9E;
+  --positive-300:  #3AAA64;
+  --positive-400:  #05A357;
+  --positive-500:  #048848;
+  --positive-600:  #066E3A;
+  --positive-700:  #054C28;
+  --uber-green:    #06C167; /* Marketing/brand bright green */
+
+  /* ------ Warning (Yellow) ------ */
+  --warning-50:   #FFF8E7;
+  --warning-100:  #FFEFC2;
+  --warning-200:  #FFE3A1;
+  --warning-300:  #FFD27A;
+  --warning-400:  #FFC043;
+  --warning-500:  #BC8B2C;
+  --warning-600:  #8C6921;
+  --warning-700:  #5C4517;
+
+  /* ------ Negative (Red) ------ */
+  --negative-50:   #FFEFED;
+  --negative-100:  #FED7D2;
+  --negative-200:  #F1998E;
+  --negative-300:  #E85C4A;
+  --negative-400:  #E11900;
+  --negative-500:  #AB1300;
+  --negative-600:  #870F00;
+  --negative-700:  #5A0A00;
+
+  /* ============================================================
+     SEMANTIC COLOR TOKENS (light)
+     The names mirror Base Web's `contentPrimary`, `backgroundPrimary`, etc.
+     ============================================================ */
+
+  /* Content (text + icon) */
+  --content-primary:    var(--mono-1000);
+  --content-secondary:  var(--mono-700);
+  --content-tertiary:   var(--mono-600);
+  --content-disabled:   var(--mono-400);
+  --content-inverse:    var(--mono-0);
+  --content-accent:     var(--accent-400);
+  --content-positive:   var(--positive-500);
+  --content-warning:    var(--warning-600);
+  --content-negative:   var(--negative-400);
+
+  /* Background (surface) */
+  --background-primary:    var(--mono-0);
+  --background-secondary:  var(--mono-100);
+  --background-tertiary:   var(--mono-200);
+  --background-inverse:    var(--mono-1000);
+  --background-accent:     var(--accent-400);
+  --background-positive:   var(--positive-400);
+  --background-warning:    var(--warning-400);
+  --background-negative:   var(--negative-400);
+
+  /* Border */
+  --border-opaque:    var(--mono-300);
+  --border-selected:  var(--mono-1000);
+  --border-accent:    var(--accent-400);
+
+  /* Common foreground aliases (legacy/short) */
+  --fg1:  var(--content-primary);
+  --fg2:  var(--content-secondary);
+  --fg3:  var(--content-tertiary);
+  --bg1:  var(--background-primary);
+  --bg2:  var(--background-secondary);
+  --bg3:  var(--background-tertiary);
+
+  /* ============================================================
+     SPACING — 4px base grid
+     ============================================================ */
+  --scale-0:    0;
+  --scale-100:  4px;
+  --scale-200:  8px;
+  --scale-300:  12px;
+  --scale-400:  16px;
+  --scale-500:  20px;
+  --scale-550:  24px;
+  --scale-600:  32px;
+  --scale-700:  40px;
+  --scale-800:  48px;
+  --scale-900:  64px;
+  --scale-1000: 80px;
+  --scale-1200: 96px;
+  --scale-1400: 128px;
+
+  /* ============================================================
+     RADIUS
+     ============================================================ */
+  --radius-100: 4px;
+  --radius-200: 8px;
+  --radius-300: 12px;
+  --radius-400: 16px;
+  --radius-pill: 9999px;
+  --radius-circle: 50%;
+
+  /* ============================================================
+     SHADOW / ELEVATION
+     ============================================================ */
+  --shadow-100: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-200: 0 2px 8px rgba(0, 0, 0, 0.10);
+  --shadow-300: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-400: 0 16px 48px rgba(0, 0, 0, 0.16);
+
+  /* ============================================================
+     MOTION
+     ============================================================ */
+  --duration-fast: 120ms;
+  --duration-base: 240ms;
+  --duration-slow: 400ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ============================================================
+     TYPOGRAPHY — Uber Move family (or substitutes)
+     ============================================================ */
+  --font-display: "UberMoveSub", "Hanken Grotesk", -apple-system,
+                  BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-text:    "UberMoveSub", "Hanken Grotesk", -apple-system,
+                  BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo,
+                  Consolas, monospace;
+
+  /* Type scale — mirrors Base Web's ParagraphXSmall…DisplayLarge.
+     Each is `font-size / line-height / letter-spacing / weight` packaged
+     as individual vars so they can be applied granularly. */
+
+  --type-display-large-size:    96px;
+  --type-display-large-lh:      96px;
+  --type-display-large-ls:      -0.04em;
+  --type-display-large-weight:  700;
+
+  --type-display-medium-size:   72px;
+  --type-display-medium-lh:     76px;
+  --type-display-medium-ls:     -0.035em;
+  --type-display-medium-weight: 700;
+
+  --type-display-small-size:    56px;
+  --type-display-small-lh:      60px;
+  --type-display-small-ls:      -0.03em;
+  --type-display-small-weight:  700;
+
+  --type-display-xsmall-size:   44px;
+  --type-display-xsmall-lh:     48px;
+  --type-display-xsmall-ls:     -0.025em;
+  --type-display-xsmall-weight: 700;
+
+  --type-heading-xxlarge-size:  36px;
+  --type-heading-xxlarge-lh:    40px;
+  --type-heading-xxlarge-ls:    -0.02em;
+  --type-heading-xxlarge-weight:700;
+
+  --type-heading-xlarge-size:   28px;
+  --type-heading-xlarge-lh:     32px;
+  --type-heading-xlarge-ls:     -0.015em;
+  --type-heading-xlarge-weight: 700;
+
+  --type-heading-large-size:    22px;
+  --type-heading-large-lh:      28px;
+  --type-heading-large-ls:      -0.01em;
+  --type-heading-large-weight:  700;
+
+  --type-heading-medium-size:   18px;
+  --type-heading-medium-lh:     24px;
+  --type-heading-medium-ls:     -0.005em;
+  --type-heading-medium-weight: 500;
+
+  --type-label-large-size:      18px;
+  --type-label-large-lh:        24px;
+  --type-label-large-weight:    500;
+
+  --type-label-medium-size:     16px;
+  --type-label-medium-lh:       20px;
+  --type-label-medium-weight:   500;
+
+  --type-label-small-size:      14px;
+  --type-label-small-lh:        20px;
+  --type-label-small-weight:    500;
+
+  --type-paragraph-large-size:    18px;
+  --type-paragraph-large-lh:      28px;
+  --type-paragraph-large-weight:  400;
+
+  --type-paragraph-medium-size:   16px;
+  --type-paragraph-medium-lh:     24px;
+  --type-paragraph-medium-weight: 400;
+
+  --type-paragraph-small-size:    14px;
+  --type-paragraph-small-lh:      20px;
+  --type-paragraph-small-weight:  400;
+
+  --type-paragraph-xsmall-size:   12px;
+  --type-paragraph-xsmall-lh:     16px;
+  --type-paragraph-xsmall-weight: 400;
+
+  --type-mono-medium-size:      14px;
+  --type-mono-medium-lh:        20px;
+  --type-mono-medium-weight:    400;
+}
+
+/* ============================================================
+   DARK theme overrides — swap surfaces, invert content
+   Activate with `<html data-theme="dark">` or `.theme-dark`.
+   ============================================================ */
+[data-theme="dark"], .theme-dark {
+  --content-primary:    var(--mono-0);
+  --content-secondary:  var(--mono-300);
+  --content-tertiary:   var(--mono-500);
+  --content-disabled:   var(--mono-700);
+  --content-inverse:    var(--mono-1000);
+
+  --background-primary:    var(--mono-1000);
+  --background-secondary:  var(--mono-900);
+  --background-tertiary:   var(--mono-800);
+  --background-inverse:    var(--mono-0);
+
+  --border-opaque:    var(--mono-800);
+  --border-selected:  var(--mono-0);
+
+  --shadow-100: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-200: 0 2px 8px rgba(0, 0, 0, 0.50);
+  --shadow-300: 0 8px 24px rgba(0, 0, 0, 0.60);
+  --shadow-400: 0 16px 48px rgba(0, 0, 0, 0.70);
+}
+
+/* ============================================================
+   ELEMENT DEFAULTS — semantic tag styling
+   ============================================================ */
+
+html, body {
+  background: var(--background-primary);
+  color: var(--content-primary);
+  font-family: var(--font-text);
+  font-size: var(--type-paragraph-medium-size);
+  line-height: var(--type-paragraph-medium-lh);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--type-display-small-size);
+  line-height: var(--type-display-small-lh);
+  letter-spacing: var(--type-display-small-ls);
+  font-weight: var(--type-display-small-weight);
+  margin: 0;
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: var(--type-heading-xxlarge-size);
+  line-height: var(--type-heading-xxlarge-lh);
+  letter-spacing: var(--type-heading-xxlarge-ls);
+  font-weight: var(--type-heading-xxlarge-weight);
+  margin: 0;
+}
+h3 {
+  font-family: var(--font-display);
+  font-size: var(--type-heading-xlarge-size);
+  line-height: var(--type-heading-xlarge-lh);
+  letter-spacing: var(--type-heading-xlarge-ls);
+  font-weight: var(--type-heading-xlarge-weight);
+  margin: 0;
+}
+h4 {
+  font-size: var(--type-heading-large-size);
+  line-height: var(--type-heading-large-lh);
+  letter-spacing: var(--type-heading-large-ls);
+  font-weight: var(--type-heading-large-weight);
+  margin: 0;
+}
+h5 {
+  font-size: var(--type-heading-medium-size);
+  line-height: var(--type-heading-medium-lh);
+  letter-spacing: var(--type-heading-medium-ls);
+  font-weight: var(--type-heading-medium-weight);
+  margin: 0;
+}
+p {
+  font-size: var(--type-paragraph-medium-size);
+  line-height: var(--type-paragraph-medium-lh);
+  margin: 0;
+}
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-medium-size);
+  line-height: var(--type-mono-medium-lh);
+}
+a {
+  color: var(--content-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
