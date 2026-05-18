@@ -187,7 +187,7 @@ function Hybrid2Promo() {
             color: PLATE.ink, letterSpacing: -1.5, fontWeight: 900
           }}>
             Tell us about<br />
-            <span style={{ color: PLATE.accentDeep }}>your week.</span>
+            <span style={{ color: PLATE.accentDeep }}>your week</span>
           </div>
           <div style={{
             fontSize: 14, lineHeight: 1.5, color: PLATE.ink2,
@@ -351,7 +351,7 @@ function Hybrid2Landing({ cadence = 5 }) {
             color: PLATE.ink, letterSpacing: -1.4, fontWeight: 900
           }}>
             This week's<br />
-            <span style={{ color: PLATE.accentDeep }}>menu.</span>
+            <span style={{ color: PLATE.accentDeep }}>menu</span>
           </div>
           <div style={{
             fontFamily: PLATE.display, fontSize: 11, fontWeight: 700,

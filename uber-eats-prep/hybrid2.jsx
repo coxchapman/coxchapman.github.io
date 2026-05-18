@@ -66,7 +66,7 @@ function Hybrid2Home() {
               color: '#fff', letterSpacing: -1.3, fontWeight: 900,
               marginBottom: 12,
             }}>
-              Your<br/>week,<br/>sorted.
+              Your<br/>week,<br/>sorted
             </div>
 
             {/* 7-day strip — Hearth UX, Plate visuals */}
@@ -186,8 +186,8 @@ function Hybrid2Promo() {
             fontFamily: PLATE.display, fontSize: 44, lineHeight: 0.94,
             color: PLATE.ink, letterSpacing: -1.5, fontWeight: 900,
           }}>
-            Tell us<br/>
-            <span style={{ color: PLATE.accentDeep }}>your week.</span>
+            Tell us about<br/>
+            <span style={{ color: PLATE.accentDeep }}>your week</span>
           </div>
           <div style={{
             fontSize: 14, lineHeight: 1.5, color: PLATE.ink2,
@@ -498,7 +498,7 @@ function Hybrid2Launch() {
           eyebrowStyle={{ letterSpacing: 0, textTransform: 'none', color: PLATE.ink2 }}
           titleNode={<>Your week of meals, <span style={{ color: PLATE.accentDeep }}>20% off</span>.</>}
           titleStyle={{ fontFamily: PLATE.display, fontWeight: 900, fontSize: 28, letterSpacing: -1, color: PLATE.ink, lineHeight: 0.98 }}
-          body="Pick the days you need covered. We cook Sunday, drop Tuesday. First shipment 20% off."
+          body="Pick the days you need covered. We cook Sunday, drop Tuesday. First shipment 20% off"
           meta="Code applied at checkout · ends June 4"
           metaStyle={{ fontFamily: PLATE.display, fontSize: 11, fontWeight: 700, letterSpacing: 0.4, color: PLATE.ink2, textTransform: 'uppercase' }}
           ctaLabel="Plan my first week →"
